@@ -1,0 +1,27 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Server back-end for our Retropie Netspace service.
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+#paths supported
+paths:
+  /user:
+    get:
+      operationId: "user.read"
+      tags:
+        -"User"
+      summary: "The user data stored within the server's database"
+      description: "Get the specified user's data"
+      responses:
+        200:
+          description: "Successful retrieval of user data"
+          schema:
+            type: "string"
+            
