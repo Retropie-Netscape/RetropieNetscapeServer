@@ -10,7 +10,8 @@ def get_user_connection_details(connection: DatabaseConnection, request: Request
         return {'serverCode': 400}
     else:
         username = jsondata['username']
-        ip = cursor.execute('SELECT ipAddress FROM USER WHERE username=?', (username, ))
+        cursor.execute('SELECT ipAddress FROM USER WHERE username=?', (username, ))
+        ip = cursor.fetchone()
         return {'ipAddress': '\'' + ip + '\'', 'serverCode': 200}
 
 
@@ -22,10 +23,15 @@ def get_user_info(connection: DatabaseConnection, reqeust: Request):
         return {'serverCode': 400}
     else:
         username = jsondata['username']
-        ip = cursor.execute('SELECT ipAddress FROM USER WHERE username=?;', (username,))
-        port = cursor.execute('SELECT port FROM USER WHERE username=?;', (username,))
-        mostplayedgame = cursor.execute('SELECT mostPlayedGame FROM USER WHERE username=?;', (username, ))
-        mostplayedemulator = cursor.execute('SELECT mostPlayedEmulator FROM USER WHERE username=?;', (username, ))
+        cursor.execute('SELECT ipAddress FROM USER WHERE username=?;', (username,))
+        ip = cursor.fetchone()
+        cursor.execute('SELECT port FROM USER WHERE username=?;', (username,))
+        port = cursor.fetchone()
+        cursor.execute('SELECT mostPlayedGame FROM USER WHERE username=?;', (username, ))
+        mostplayedgame = cursor.fetchone()
+        cursor.execute('SELECT mostPlayedEmulator FROM USER WHERE username=?;', (username, ))
+        mostplayedemulator = cursor.fetchone()
+
         jsonlist = {
             'ipAddress': '\'' + ip + '\'',
             'port': '\'' + port + '\'',
@@ -45,8 +51,11 @@ def get_leaderboard_details(connection: DatabaseConnection, req: Request):
         return {'serverCode': 400}
     else:
         username = jsondata['username']
-        mostplayedgame = cursor.execute('SELECT mostPlayedGame FROM USER WHERE username=?;', (username,))
-        mostplayedemulator = cursor.execute('SELECT mostPlayedEmulator FROM USER WHERE username=?;', (username,))
+        cursor.execute('SELECT mostPlayedGame FROM USER WHERE username=?;', (username,))
+        mostplayedgame = cursor.fetchone()
+        cursor.execute('SELECT mostPlayedEmulator FROM USER WHERE username=?;', (username,))
+        mostplayedemulator = cursor.fetchone()
+
         jsonlist = {
             'mostPlayedGame': '\'' + mostplayedgame + '\'',
             'mostPlayedEmulator': '\'' + mostplayedemulator + '\'',

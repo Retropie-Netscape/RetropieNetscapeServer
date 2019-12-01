@@ -1,7 +1,6 @@
 from flask import (
     Flask,
-    request,
-    Response
+    request
 )
 from ..user_endpoints import create_user
 from ..user_endpoints import user_info
