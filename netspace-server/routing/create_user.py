@@ -1,8 +1,6 @@
-from ..database_connection.connection import DatabaseConnection
+from connection import DatabaseConnection
 from flask import (
-    Flask,
-    Request,
-    Response
+    Request
 )
 
 
@@ -13,7 +11,9 @@ def create_new_user(connection: DatabaseConnection, req: Request):
     if jsonData is None:
         return {'serverCode': 400}
     else:
-        cursor.execute("INSERT INTO USER VALUES (?, ?, ?, ?);", (jsonData['username'], jsonData['ip-address'], 'null', 'null'))
+        cursor.execute("INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?);",
+                       (jsonData['username'], jsonData['ip-address'], jsonData['port'],
+                        'null', 'null', jsonData['mode']))
         connection.conn.commit()
         return {'serverCode': 200}
 

@@ -1,4 +1,4 @@
-from ..database_connection.connection import DatabaseConnection
+from connection import DatabaseConnection
 from flask import Request
 
 

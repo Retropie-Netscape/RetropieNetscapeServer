@@ -5,7 +5,7 @@ from sqlite3 import Error
 class DatabaseConnection:
 
     def __init__(self, db_file: str):
-        super().__init__(self)
+        super().__init__()
         # Creates connection to the specified sqlite3 database
         self.conn = None
 

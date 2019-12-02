@@ -2,9 +2,9 @@ from flask import (
     Flask,
     request
 )
-from ..user_endpoints import create_user
-from ..user_endpoints import user_info
-from ..database_connection.connection import DatabaseConnection
+import create_user
+import user_info
+from connection import DatabaseConnection
 
 # Create the application instance
 app = Flask(__name__)
@@ -30,7 +30,7 @@ def connection_details():
         return response
 
 
-@app.route('user/leaderboard-details', methods=['GET', 'PUT'])
+@app.route('/user/leaderboard-details', methods=['GET', 'PUT'])
 def leaderboard_details():
     if request.method == 'PUT':
         return Flask.make_response(app, create_user.update_leaderboard_stats(connection, request))
@@ -39,4 +39,4 @@ def leaderboard_details():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context='adhoc')
+    app.run(host='10.0.0.119', port=5000, debug=True, ssl_context='adhoc')
