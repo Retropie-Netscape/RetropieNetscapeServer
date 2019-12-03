@@ -18,10 +18,11 @@ def get_user_connection_details(request: Request):
         cursor.execute('SELECT netplaymode FROM user WHERE username=?', (username, ))
         mode = cursor.fetchone()
 
-        data = {'ipAddress': '\'' + ip + '\'',
-                'port': '\'' + port + '\'',
-                'mode': '\'' + mode + '\'',
-                'serverCode': 200
+        data = {
+            'ipAddress': '\'' + ip + '\'',
+            'port': '\'' + port + '\'',
+            'mode': '\'' + mode + '\'',
+            'serverCode': 200
         }
 
         return data
