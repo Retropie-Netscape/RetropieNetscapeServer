@@ -13,7 +13,16 @@ def get_user_connection_details(request: Request):
         username = jsondata['username']
         cursor.execute('SELECT ipaddress FROM user WHERE username=?', (username, ))
         ip = cursor.fetchone()
-        return {'ipAddress': '\'' + ip + '\'', 'serverCode': 200}
+        cursor.execute('SELECT port FROM user WHERE username=?', (username, ))
+        port = cursor.fetchone()
+        cursor.execute('SELECT netplaymode FROM user WHERE username=?', (username, ))
+        mode = cursor.fetchone()
+
+        return {'ipAddress': '\'' + ip + '\'',
+                'port': '\'' + port + '\'',
+                'mode': '\'' + mode + '\'',
+                'serverCode': 200
+                }
 
 
 def get_user_info(reqeust: Request):
@@ -42,6 +51,7 @@ def get_user_info(reqeust: Request):
             'mostPlayedGame': '\'' + mostplayedgame + '\'',
             'mostPlayedEmulator': '\'' + mostplayedemulator + '\'',
             'serverCode': 200,
+            'mode': '\'' + mode + '\''
         }
 
         return jsonlist
