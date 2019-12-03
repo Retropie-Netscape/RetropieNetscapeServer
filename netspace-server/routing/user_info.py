@@ -13,11 +13,15 @@ def get_user_connection_details(request: Request):
         username = jsondata['username']
         cursor.execute('SELECT ipaddress FROM user WHERE username=?', (username, ))
         ip = cursor.fetchone()
+        cursor.execute('SELECT port FROM user WHERE username=?', (username, ))
+        port = cursor.fetchone()
+        cursor.execute('SELECT netplaymode FROM user WHERE username=?', (username, ))
+        mode = cursor.fetchone()
 
         data = {
-            'ipAddress': '\'' + ip[1] + '\'',
-            'port': '\'' + ip[2] + '\'',
-            'mode': '\'' + ip[5] + '\'',
+            'ipAddress': '\'' + ip[0] + '\'',
+            'port': '\'' + port[0] + '\'',
+            'mode': '\'' + mode[0] + '\'',
             'serverCode': 200
         }
 
@@ -35,14 +39,22 @@ def get_user_info(reqeust: Request):
         username = jsondata['username']
         cursor.execute('SELECT ipaddress FROM user WHERE username=?;', (username,))
         ip = cursor.fetchone()
+        cursor.execute('SELECT port FROM user WHERE username=?;', (username,))
+        port = cursor.fetchone()
+        cursor.execute('SELECT mostplayedgame FROM user WHERE username=?;', (username, ))
+        mostplayedgame = cursor.fetchone()
+        cursor.execute('SELECT mostplayedemulator FROM user WHERE username=?;', (username, ))
+        mostplayedemulator = cursor.fetchone()
+        cursor.execute('SELECT mode FROM user WHERE username=?', (username, ))
+        mode = cursor.fetchone()
 
         jsonlist = {
-            'ipAddress': '\'' + ip[1] + '\'',
-            'port': '\'' + ip[2] + '\'',
-            'mostPlayedGame': '\'' + ip[3] + '\'',
-            'mostPlayedEmulator': '\'' + ip[4] + '\'',
+            'ipAddress': '\'' + ip[0] + '\'',
+            'port': '\'' + port[0] + '\'',
+            'mostPlayedGame': '\'' + mostplayedgame[0] + '\'',
+            'mostPlayedEmulator': '\'' + mostplayedemulator[0] + '\'',
             'serverCode': 200,
-            'mode': '\'' + ip[5] + '\''
+            'mode': '\'' + mode[0] + '\''
         }
 
         return jsonlist
@@ -59,10 +71,12 @@ def get_leaderboard_details(req: Request):
         username = jsondata['username']
         cursor.execute('SELECT mostplayedgame FROM user WHERE username=?;', (username,))
         mostplayedgame = cursor.fetchone()
+        cursor.execute('SELECT mostplayedemulator FROM user WHERE username=?;', (username,))
+        mostplayedemulator = cursor.fetchone()
 
         jsonlist = {
-            'mostPlayedGame': '\'' + mostplayedgame[3] + '\'',
-            'mostPlayedEmulator': '\'' + mostplayedgame[4] + '\'',
+            'mostPlayedGame': '\'' + mostplayedgame[0] + '\'',
+            'mostPlayedEmulator': '\'' + mostplayedemulator[0] + '\'',
             'serverCode': 200
         }
 
