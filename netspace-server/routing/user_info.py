@@ -5,7 +5,7 @@ import json
 def get_user_connection_details(request: Request):
     connection = DatabaseConnection('userbase.db')
     cursor = connection.conn.cursor()
-    jsondata = json.loads(request.get_json())
+    jsondata = (request.get_json())
 
     if jsondata is None:
         return {'serverCode': 400}
@@ -28,7 +28,7 @@ def get_user_connection_details(request: Request):
 def get_user_info(reqeust: Request):
     connection = DatabaseConnection('userbase.db')
     cursor = connection.conn.cursor()
-    jsondata = json.loads(reqeust.get_json())
+    jsondata = (reqeust.get_json())
 
     if jsondata is None:
         return {'serverCode': 400}
@@ -60,7 +60,7 @@ def get_user_info(reqeust: Request):
 def get_leaderboard_details(req: Request):
     connection = DatabaseConnection('userbase.db')
     cursor = connection.conn.cursor()
-    jsondata = json.loads(req.get_json())
+    jsondata = (req.get_json())
 
     if jsondata is None:
         return {'serverCode': 400}
