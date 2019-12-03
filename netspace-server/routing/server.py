@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # Create a URL route in our application for "/username"
 @app.route('/user', methods=['GET', 'POST'])
-def user_info():
+def get_user_info():
     if request.method == 'POST':
         response = Flask.make_response(app, create_user.create_new_user(request))
         return response
